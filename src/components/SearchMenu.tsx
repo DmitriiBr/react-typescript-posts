@@ -7,10 +7,14 @@ const SearchMenu = () => {
       <Input
         label="Search by title"
         type="text"
+        value=""
+        setValue={() => console.log('inputed')}
       />
       <Input
         label="Search by body"
         type="text"
+        value=""
+        setValue={() => console.log('inputed')}
       />
     </div>
   );

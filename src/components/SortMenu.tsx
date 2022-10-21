@@ -1,29 +1,48 @@
-import React, { useContext, useState } from 'react';
-import { PostsContext } from '../context/PostsContext';
+import React, {
+  Dispatch,
+  SetStateAction,
+  useEffect,
+  useMemo,
+  useState,
+} from 'react';
 import { IPost } from '../data/types';
 
-const SortMenu: React.FC = () => {
-  const { posts, setPosts } = useContext(PostsContext);
-  const postTemplate = Object.keys(posts[0] || {}).reverse();
+type IData = IPost;
 
-  const [highlighted, setHighlighted] = useState<boolean>();
+interface SortMenuProps {
+  data: Array<keyof IData>;
+  state: IData[];
+  setState: Dispatch<SetStateAction<IData[]>>;
+}
 
-  const onSort = (property: keyof IPost) => {
-    console.log('sorted');
-    setPosts(
-      [...posts].sort((a, b) =>
-        String(a[property]).localeCompare(String(b[property]))
-      )
-    );
-  };
+const SortMenu: React.FC<SortMenuProps> = ({ data, state, setState }) => {
+  const [selectedSort, setSelectedSort] = useState<keyof IData>();
+
+  const sortedData = useMemo(() => {
+    if (selectedSort) {
+      console.log('sorted');
+      return [...state].sort((a, b) => {
+        if (typeof a[selectedSort] === 'number') {
+          return Number(a[selectedSort]) - Number(b[selectedSort]);
+        } else {
+          return String(a[selectedSort]).localeCompare(String(b[selectedSort]));
+        }
+      });
+    }
+    return state;
+  }, [selectedSort]);
+
+  useEffect(() => {
+    setState(sortedData);
+  }, [selectedSort]);
 
   return (
     <ul className="flex justify-around w-full border border-gray-500 py-2 px-4">
-      {postTemplate.map((property) => (
+      {data.map((property) => (
         <li
           key={property}
           className="font-bold cursor-pointer"
-          onClick={() => onSort(property as keyof IPost)}
+          onClick={() => setSelectedSort(property as keyof IData)}
         >
           {property}
         </li>

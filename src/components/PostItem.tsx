@@ -1,4 +1,5 @@
-import React from 'react';
+import React, { useContext } from 'react';
+import { PostsContext } from '../context/PostsContext';
 import { IPost } from '../data/types';
 import Button from './Button';
 
@@ -7,7 +8,11 @@ interface PostItemProps {
 }
 
 const PostItem: React.FC<PostItemProps> = ({ post }) => {
-  const clickHandler = () => console.log('clicked');
+  const { posts, setPosts } = useContext(PostsContext);
+
+  const deletePost = (id: number) => {
+    setPosts([...posts].filter((post) => id !== post.id));
+  };
 
   return (
     <li className="mb-2 py-2 px-4 border border-gray-600 flex justify-between items-center">
@@ -19,9 +24,9 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
         <span>User who post this has and id of: {post.userId}</span>
       </div>
       <div className="flex flex-col w-1/5">
-        <Button onClick={clickHandler}>Open post</Button>
+        <Button onClick={() => console.log('opened')}>Open post</Button>
         <Button
-          onClick={clickHandler}
+          onClick={() => deletePost(post.id)}
           background={'bg-red-400'}
           color={'text-white'}
         >
