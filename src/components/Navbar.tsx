@@ -1,4 +1,6 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { RouterPaths } from '../routes/indes';
 
 const Navbar = () => {
   return (
@@ -9,8 +11,16 @@ const Navbar = () => {
     >
       <span className="text-2xl font-bold text-white">Logo</span>
       <ul className="flex items-center justify-between">
-        <li className="mr-2 text-2xl hover:text-white transition-all">Home</li>
-        <li className="mr-2 text-2xl hover:text-white transition-all">About</li>
+        <Link to={RouterPaths.MAIN}>
+          <li className="mr-2 text-2xl hover:text-white transition-all cursor-pointer">
+            Home
+          </li>
+        </Link>
+        <Link to={RouterPaths.LOGIN}>
+          <li className="mr-2 text-2xl hover:text-white transition-all cursor-pointer">
+            About
+          </li>
+        </Link>
       </ul>
     </nav>
   );
