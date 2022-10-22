@@ -4,6 +4,7 @@ import { PostsContext } from '../context/PostsContext';
 import { IPost } from '../data/types';
 import Button from './Button';
 import Input from './Input';
+import TextArea from './TextArea';
 
 const CreatePost = () => {
   const { posts, setPosts } = useContext(PostsContext);
@@ -20,15 +21,15 @@ const CreatePost = () => {
   const [newPost, setNewPost] = useState(postTemplate);
 
   const onChangeHandler = (field: 'body' | 'title') => {
-    return (inputValue: string) => {
+    return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       setPostError('');
-      setNewPost({ ...newPost, [field]: inputValue });
+      setNewPost({ ...newPost, [field]: e.target.value });
     };
   };
 
-  const handleCreatePost = () => {
+  const handleCreatePost = (e: React.FormEvent) => {
     if (newPost.body && newPost.title) {
-      console.log('created');
+      e.preventDefault();
       setPosts([...posts, newPost]);
       close();
     } else {
@@ -40,29 +41,28 @@ const CreatePost = () => {
   return (
     <form
       className="flex flex-col justify-between"
-      onSubmit={(e) => e.preventDefault()}
+      onSubmit={handleCreatePost}
     >
       <Input
         label="Post title: "
         type="text"
         placeholder="title..."
         value={newPost.title}
-        setValue={onChangeHandler('title')}
+        onChange={onChangeHandler('title')}
       />
       {!newPost.title && postError && (
         <span className="text-red-500 px-3 text-sm">{postError}</span>
       )}
-      <Input
+      <TextArea
         label="Post body: "
-        type="textarea"
         placeholder="body..."
         value={newPost.body}
-        setValue={onChangeHandler('body')}
+        onChange={onChangeHandler('body')}
       />
       {!newPost.body && postError && (
         <span className="text-red-500 px-3 text-sm">{postError}</span>
       )}
-      <Button onClick={handleCreatePost}>Create</Button>
+      <Button>Create</Button>
     </form>
   );
 };

@@ -1,12 +1,14 @@
-import React, { useContext } from 'react';
+import React from 'react';
 import PostItem from './PostItem';
-import { PostsContext } from '../context/PostsContext';
 import Modal from './Modal';
 import CreatePost from './CreatePost';
+import { IPost } from '../data/types';
 
-const Posts = () => {
-  const { posts } = useContext(PostsContext);
+interface PostsProps {
+  posts: IPost[];
+}
 
+const Posts: React.FC<PostsProps> = ({ posts }) => {
   return (
     <>
       <Modal title="Create new post:">

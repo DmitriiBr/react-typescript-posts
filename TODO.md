@@ -2,7 +2,11 @@
 
 ## High
 
-- Implement posts deleting and post adding functional
+- React router-dom implementation [done]
+- Fix bug with sorting posts [done]
+- Create modal "Do you really want to delete this post?"
+- Implement redacting posts information
+- Simple login form with validation, but no backend
 - Implement functional to select exact post and see page with its
   commentaries and another information about it
 
@@ -11,8 +15,6 @@
 - Create loader to show something like spinner while async functions are
   working
 - Create universal modal component to do some actions with posts
-- Implement redacting posts information
-- Simple login form with validation, but no backend
 - Create a theme-switcher with tailwindcss
 
 ## Low priority
