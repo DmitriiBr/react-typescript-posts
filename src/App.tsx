@@ -7,15 +7,17 @@ function App() {
   return (
     <div className={`relative`}>
       <Navbar />
-      <Routes>
-        {routes.map((route) => (
-          <Route
-            path={route.path}
-            element={<route.element />}
-            key={route.path}
-          />
-        ))}
-      </Routes>
+      <div className="pt-20 container flex justify-center items-center flex-col max-w-3xl m-auto">
+        <Routes>
+          {routes.map((route) => (
+            <Route
+              path={route.path}
+              element={<route.element />}
+              key={route.path}
+            />
+          ))}
+        </Routes>
+      </div>
     </div>
   );
 }

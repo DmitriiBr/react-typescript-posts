@@ -1,5 +1,5 @@
 import React, { useContext, useState } from 'react';
-import { ModalContext } from '../context/ModalContext';
+import { ModalContext, ModalTypes } from '../context/ModalContext';
 import { PostsContext } from '../context/PostsContext';
 import { IPost } from '../data/types';
 import Button from './Button';
@@ -12,7 +12,7 @@ const CreatePost = () => {
   const [postError, setPostError] = useState<string>('');
 
   const postTemplate: IPost = {
-    id: posts.length + 1,
+    id: Date.now(),
     title: '',
     body: '',
     userId: Date.now(),
@@ -31,8 +31,9 @@ const CreatePost = () => {
     if (newPost.body && newPost.title) {
       e.preventDefault();
       setPosts([...posts, newPost]);
-      close();
+      close(ModalTypes.createPost);
     } else {
+      e.preventDefault();
       console.log('errored');
       setPostError('You shold write something.');
     }

@@ -2,15 +2,16 @@ import React, {
   createContext,
   Dispatch,
   SetStateAction,
-  useEffect,
   useState,
 } from 'react';
 import { IPost } from '../data/types';
-import axios from 'axios';
+import { usePosts } from '../hooks/usePosts';
 
 interface IPostsContext {
   posts: IPost[];
   setPosts: Dispatch<SetStateAction<IPost[]>>;
+  choosedPostID: number;
+  setChoosedPostID: Dispatch<SetStateAction<number>>;
 }
 
 interface PostsStateProps {
@@ -22,26 +23,20 @@ export const PostsContext = createContext<IPostsContext>({
   setPosts: () => {
     return;
   },
+  choosedPostID: 0,
+  setChoosedPostID: () => {
+    return;
+  },
 });
 
 const PostsState = ({ children }: PostsStateProps) => {
-  const [posts, setPosts] = useState<IPost[]>([]);
-
-  const fetchPosts = async () => {
-    const response = await axios.get<IPost[]>(
-      'https://jsonplaceholder.typicode.com/posts'
-    );
-    console.log('Posts fetched');
-
-    setPosts(response.data);
-  };
-
-  useEffect(() => {
-    fetchPosts();
-  }, []);
+  const [choosedPostID, setChoosedPostID] = useState<number>(0);
+  const { posts, setPosts } = usePosts();
 
   return (
-    <PostsContext.Provider value={{ posts, setPosts }}>
+    <PostsContext.Provider
+      value={{ posts, setPosts, choosedPostID, setChoosedPostID }}
+    >
       {children}
     </PostsContext.Provider>
   );
