@@ -2,7 +2,7 @@ import React, { useContext, useMemo, useState } from 'react';
 import Posts from '../components/Posts';
 import SearchMenu from '../components/SearchMenu';
 import SortMenu from '../components/SortMenu';
-import { ModalContext } from '../context/ModalContext';
+import { ModalContext, ModalTypes } from '../context/ModalContext';
 import { PostsContext } from '../context/PostsContext';
 import { IPost } from '../data/types';
 
@@ -31,7 +31,7 @@ const Main = () => {
   };
 
   return (
-    <div className="pt-20 container flex justify-center items-center flex-col max-w-3xl m-auto">
+    <>
       <h1 className="text-center font-bold font-mono text-3xl">Hello world</h1>
       <SearchMenu />
       <SortMenu
@@ -43,11 +43,11 @@ const Main = () => {
         className="fixed right-5 bottom-5 border
          border-gray-500 py-2 px-2 bg-green-300 rounded 
          hover:bg-green-500 hover:text-white transition-all"
-        onClick={open}
+        onClick={() => open(ModalTypes.createPost)}
       >
         New post
       </button>
-    </div>
+    </>
   );
 };
 

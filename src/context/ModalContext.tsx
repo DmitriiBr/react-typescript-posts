@@ -1,13 +1,26 @@
 import React, { createContext, useEffect, useState } from 'react';
 
+export enum ModalTypes {
+  createPost = 'createPostModal',
+  deletePost = 'deletePostModal',
+}
+
+export interface IVisibility {
+  [ModalTypes.createPost]: boolean;
+  [ModalTypes.deletePost]: boolean;
+}
+
 interface IModalContext {
-  isVisible: boolean;
-  open: () => void;
-  close: () => void;
+  visibility: IVisibility;
+  open: (prop: keyof IVisibility) => void;
+  close: (prop: keyof IVisibility) => void;
 }
 
 export const ModalContext = createContext<IModalContext>({
-  isVisible: false,
+  visibility: {
+    createPostModal: false,
+    deletePostModal: false,
+  },
   open: () => {
     return;
   },
@@ -17,24 +30,32 @@ export const ModalContext = createContext<IModalContext>({
 });
 
 export const ModalState = ({ children }: { children: React.ReactNode }) => {
-  const [isVisible, setIsVisible] = useState(false);
-
-  const open = () => {
-    setIsVisible(true);
+  const visibilityTemplate: IVisibility = {
+    createPostModal: false,
+    deletePostModal: false,
   };
 
-  const close = () => setIsVisible(false);
+  const [visibility, setVisibility] = useState(visibilityTemplate);
+
+  const open = (prop: keyof IVisibility) =>
+    setVisibility({ ...visibility, [prop]: true });
+
+  const close = (prop: keyof IVisibility) =>
+    setVisibility({ ...visibility, [prop]: false });
 
   useEffect(() => {
-    if (isVisible) {
+    if (
+      visibility[ModalTypes.createPost] ||
+      visibility[ModalTypes.deletePost]
+    ) {
       document.body.style.overflow = 'hidden';
     } else {
       document.body.style.overflow = 'auto';
     }
-  }, [isVisible]);
+  }, [visibility]);
 
   return (
-    <ModalContext.Provider value={{ isVisible, open, close }}>
+    <ModalContext.Provider value={{ visibility, open, close }}>
       {children}
     </ModalContext.Provider>
   );
