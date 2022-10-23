@@ -20,6 +20,11 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
     setChoosedPostID(id);
   };
 
+  const askForEditingPost = (id: number) => {
+    open(ModalTypes.editPost);
+    setChoosedPostID(id);
+  };
+
   const handleOpenExactPost = (id: number) => {
     navigate(`/posts/${id}`);
     setChoosedPostID(id);
@@ -48,7 +53,7 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
         <span>User who post this has and id of: {post.userId}</span>
       </div>
       <div className="flex flex-col w-1/5">
-        <Button>Edit</Button>
+        <Button onClick={() => askForEditingPost(post.id)}>Edit</Button>
         <Button
           onClick={() => askForDeletingPost(post.id)}
           background={'bg-red-400'}

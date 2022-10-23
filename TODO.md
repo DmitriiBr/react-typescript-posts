@@ -6,8 +6,8 @@
   working [done]
 - Add error catching to fetch async function ans error catch to user interface [done]
 - Implement commentaries to exact post page [done]
-- Implement editing posts information
-- Create simple animation to Modal-windows
+- Implement editing posts information [done]
+- Create simple animation to Modal-windows [undone]
 - Simple login form with validation
 
 ## Medium

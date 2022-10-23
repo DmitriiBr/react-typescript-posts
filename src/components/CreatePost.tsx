@@ -18,6 +18,7 @@ const CreatePost = () => {
     userId: Date.now(),
   };
 
+  console.log(posts[posts.length - 1].id + 1);
   const [newPost, setNewPost] = useState(postTemplate);
 
   const setPostAttribute = (field: 'body' | 'title') => {

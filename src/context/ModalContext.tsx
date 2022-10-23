@@ -3,11 +3,13 @@ import React, { createContext, useEffect, useState } from 'react';
 export enum ModalTypes {
   createPost = 'createPostModal',
   deletePost = 'deletePostModal',
+  editPost = 'editPostModal',
 }
 
 export interface IVisibility {
   [ModalTypes.createPost]: boolean;
   [ModalTypes.deletePost]: boolean;
+  [ModalTypes.editPost]: boolean;
 }
 
 interface IModalContext {
@@ -20,6 +22,7 @@ export const ModalContext = createContext<IModalContext>({
   visibility: {
     createPostModal: false,
     deletePostModal: false,
+    editPostModal: false,
   },
   open: () => {
     return;
@@ -33,6 +36,7 @@ export const ModalState = ({ children }: { children: React.ReactNode }) => {
   const visibilityTemplate: IVisibility = {
     createPostModal: false,
     deletePostModal: false,
+    editPostModal: false,
   };
 
   const [visibility, setVisibility] = useState(visibilityTemplate);

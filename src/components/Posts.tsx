@@ -8,6 +8,7 @@ import { ModalTypes } from '../context/ModalContext';
 import { PostsContext } from '../context/PostsContext';
 import Loader from './Loader/Loader';
 import Error from './Error/Error';
+import EditPost from './EditPost';
 
 interface PostsProps {
   posts: IPost[];
@@ -28,6 +29,12 @@ const Posts: React.FC<PostsProps> = ({ posts }) => {
         modalType={ModalTypes.deletePost}
       >
         <DeletePost />
+      </Modal>
+      <Modal
+        title="Post editing"
+        modalType={ModalTypes.editPost}
+      >
+        <EditPost />
       </Modal>
       {error && <Error>{error}</Error>}
       {loading ? (

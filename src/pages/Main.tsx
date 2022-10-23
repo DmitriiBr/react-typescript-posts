@@ -9,7 +9,7 @@ import { IPost } from '../data/types';
 const Main = () => {
   const { open } = useContext(ModalContext);
   const { posts } = useContext(PostsContext);
-  const [selectedSort, setSelectedSort] = useState<keyof IPost>();
+  const [selectedSort, setSelectedSort] = useState<keyof IPost>('id');
 
   const getSortedPosts = (): IPost[] => {
     if (selectedSort) {
