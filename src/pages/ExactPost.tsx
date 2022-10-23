@@ -3,10 +3,11 @@ import { useParams } from 'react-router-dom';
 import Loader from '../components/Loader/Loader';
 import { useExactPost } from '../hooks/useExactPost';
 import Error from '../components/Error/Error';
+import Comments from '../components/Comments';
 
 const ExactPost = () => {
-  const { id } = useParams();
-  const { exactPost, loading, error } = useExactPost(id || '');
+  const { id: postId } = useParams();
+  const { exactPost, loading, error } = useExactPost(postId || '');
 
   return (
     <div className="mt-10">
@@ -19,6 +20,7 @@ const ExactPost = () => {
             {exactPost?.id}. {exactPost?.title}
           </h1>
           <p className="text-xl">{exactPost?.body}</p>
+          <Comments postId={postId} />
         </>
       )}
     </div>

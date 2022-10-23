@@ -20,8 +20,9 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
     setChoosedPostID(id);
   };
 
-  const handleOpenExactPost = () => {
-    navigate(`/posts/${post.id}`);
+  const handleOpenExactPost = (id: number) => {
+    navigate(`/posts/${id}`);
+    setChoosedPostID(id);
   };
 
   const postBodyShorter = (body: string) => {
@@ -37,7 +38,7 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
       <div className="px-4 w-4/5">
         <h1
           className="text-2xl font-bold mb-2 cursor-pointer hover:text-blue-500"
-          onClick={handleOpenExactPost}
+          onClick={() => handleOpenExactPost(post.id)}
         >
           {post.id}. {post.title}
         </h1>
