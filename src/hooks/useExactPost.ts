@@ -4,15 +4,19 @@ import { IPost } from '../data/types';
 
 export const useExactPost = (id: string) => {
   const [exactPost, setExactPost] = useState<IPost>();
+  const [loading, setLoading] = useState<boolean>(false);
 
   const fetchExactPost = async () => {
     try {
+      setLoading(true);
       const response = await axios.get<IPost>(
         `https://jsonplaceholder.typicode.com/posts/${id}`
       );
+      setLoading(false);
 
       setExactPost(response.data);
     } catch (e) {
+      setLoading(false);
       console.log(e);
     }
   };
@@ -21,5 +25,5 @@ export const useExactPost = (id: string) => {
     fetchExactPost();
   }, []);
 
-  return { exactPost };
+  return { exactPost, loading };
 };

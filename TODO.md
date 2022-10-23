@@ -2,20 +2,18 @@
 
 ## High
 
-- React router-dom implementation [done]
-- Fix bug with sorting posts [done]
-- Modal close when clicking on backdrop [done]
-- Create modal "Do you really want to delete this post?" [done]
-- Implement functional to select exact post and see page with its
-  commentaries and another information about it [done]
-- Simple login form with validation, but no backend
+- Create loader to show something like spinner while async functions are
+  working [done]
+- Add error catching to fetch async function ans error catch to user interface
+- Rework post styling
 - Implement redacting posts information
+- Create simple animation to Modal-windows
+- Implement commentaries to exact post page
+- Implement redacting posts information
+- Simple login form with validation
 
 ## Medium
 
-- Create loader to show something like spinner while async functions are
-  working
-- Create universal modal component to do some actions with posts [done]
 - Create a theme-switcher with tailwindcss
 
 ## Low priority

@@ -12,6 +12,7 @@ interface IPostsContext {
   setPosts: Dispatch<SetStateAction<IPost[]>>;
   choosedPostID: number;
   setChoosedPostID: Dispatch<SetStateAction<number>>;
+  loading: boolean;
 }
 
 interface PostsStateProps {
@@ -27,15 +28,16 @@ export const PostsContext = createContext<IPostsContext>({
   setChoosedPostID: () => {
     return;
   },
+  loading: false,
 });
 
 const PostsState = ({ children }: PostsStateProps) => {
   const [choosedPostID, setChoosedPostID] = useState<number>(0);
-  const { posts, setPosts } = usePosts();
+  const { posts, setPosts, loading } = usePosts();
 
   return (
     <PostsContext.Provider
-      value={{ posts, setPosts, choosedPostID, setChoosedPostID }}
+      value={{ posts, setPosts, choosedPostID, setChoosedPostID, loading }}
     >
       {children}
     </PostsContext.Provider>
