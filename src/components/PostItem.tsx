@@ -24,6 +24,14 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
     navigate(`/posts/${post.id}`);
   };
 
+  const postBodyShorter = (body: string) => {
+    if (body.length > 100) {
+      return body.slice(0, 100) + '...';
+    } else {
+      return body;
+    }
+  };
+
   return (
     <li className="mb-2 py-2 px-4 border border-gray-600 flex justify-between items-end">
       <div className="px-4 w-4/5">
@@ -33,7 +41,9 @@ const PostItem: React.FC<PostItemProps> = ({ post }) => {
         >
           {post.id}. {post.title}
         </h1>
-        <p className="font-normal text-gray-500 mb-2">{post.body}</p>
+        <p className="font-normal text-gray-500 mb-2">
+          {postBodyShorter(post.body)}
+        </p>
         <span>User who post this has and id of: {post.userId}</span>
       </div>
       <div className="flex flex-col w-1/5">

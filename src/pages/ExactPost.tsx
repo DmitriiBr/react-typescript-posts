@@ -2,13 +2,15 @@ import React from 'react';
 import { useParams } from 'react-router-dom';
 import Loader from '../components/Loader/Loader';
 import { useExactPost } from '../hooks/useExactPost';
+import Error from '../components/Error/Error';
 
 const ExactPost = () => {
   const { id } = useParams();
-  const { exactPost, loading } = useExactPost(id || '');
+  const { exactPost, loading, error } = useExactPost(id || '');
 
   return (
     <div className="mt-10">
+      {error && <Error>{error}</Error>}
       {loading ? (
         <Loader />
       ) : (

@@ -7,13 +7,14 @@ import DeletePost from './DeletePost';
 import { ModalTypes } from '../context/ModalContext';
 import { PostsContext } from '../context/PostsContext';
 import Loader from './Loader/Loader';
+import Error from './Error/Error';
 
 interface PostsProps {
   posts: IPost[];
 }
 
 const Posts: React.FC<PostsProps> = ({ posts }) => {
-  const { loading } = useContext(PostsContext);
+  const { loading, error } = useContext(PostsContext);
   return (
     <>
       <Modal
@@ -28,6 +29,7 @@ const Posts: React.FC<PostsProps> = ({ posts }) => {
       >
         <DeletePost />
       </Modal>
+      {error && <Error>{error}</Error>}
       {loading ? (
         <Loader />
       ) : (

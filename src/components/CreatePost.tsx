@@ -12,7 +12,7 @@ const CreatePost = () => {
   const [postError, setPostError] = useState<string>('');
 
   const postTemplate: IPost = {
-    id: Date.now(),
+    id: posts[posts.length - 1].id + 1,
     title: '',
     body: '',
     userId: Date.now(),
@@ -20,7 +20,7 @@ const CreatePost = () => {
 
   const [newPost, setNewPost] = useState(postTemplate);
 
-  const onChangeHandler = (field: 'body' | 'title') => {
+  const setPostAttribute = (field: 'body' | 'title') => {
     return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
       setPostError('');
       setNewPost({ ...newPost, [field]: e.target.value });
@@ -49,7 +49,7 @@ const CreatePost = () => {
         type="text"
         placeholder="title..."
         value={newPost.title}
-        onChange={onChangeHandler('title')}
+        onChange={setPostAttribute('title')}
       />
       {!newPost.title && postError && (
         <span className="text-red-500 px-3 text-sm">{postError}</span>
@@ -58,7 +58,7 @@ const CreatePost = () => {
         label="Post body: "
         placeholder="body..."
         value={newPost.body}
-        onChange={onChangeHandler('body')}
+        onChange={setPostAttribute('body')}
       />
       {!newPost.body && postError && (
         <span className="text-red-500 px-3 text-sm">{postError}</span>
