@@ -2,9 +2,7 @@
 
 ## High
 
-- Create simple animation to Modal-windows [done]
-- Refactor posts editing, adding, deleting to work with server
-- Posts pagination functional
+- Posts pagination functional [doing]
 - Create filtering and finding posts functional
 - Simple login form with validation
 

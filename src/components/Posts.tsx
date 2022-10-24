@@ -1,4 +1,4 @@
-import React, { useContext, useEffect } from 'react';
+import React, { useContext, useEffect, useMemo, useState } from 'react';
 import PostItem from './PostItem';
 import Modal from './Modal';
 import CreatePost from './CreatePost';
@@ -18,6 +18,20 @@ interface PostsProps {
 const Posts: React.FC<PostsProps> = ({ posts }) => {
   const { getAllPosts } = useContext(PostsContext);
   const [fetchPostsData, loadingPosts, errorPosts] = useFetch(getAllPosts);
+  const [pagesTotal, setPagesTotal] = useState(10);
+  const [pagesLimit, setPagesLimit] = useState(10);
+  const [page, setPage] = useState(1);
+
+  const pagesArray = useMemo(() => {
+    const arr = [];
+
+    for (let i = 0; i < pagesTotal; i++) {
+      arr.push(i + 1);
+    }
+
+    return arr;
+  }, [pagesTotal]);
+  console.log(pagesArray);
 
   useEffect(() => {
     fetchPostsData();
