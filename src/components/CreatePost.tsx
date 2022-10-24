@@ -12,13 +12,12 @@ const CreatePost = () => {
   const [postError, setPostError] = useState<string>('');
 
   const postTemplate: IPost = {
-    id: posts[posts.length - 1].id + 1,
+    id: Date.now(),
     title: '',
     body: '',
     userId: Date.now(),
   };
 
-  console.log(posts[posts.length - 1].id + 1);
   const [newPost, setNewPost] = useState(postTemplate);
 
   const setPostAttribute = (field: 'body' | 'title') => {

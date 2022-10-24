@@ -8,7 +8,7 @@ const TextArea: React.FC<TextAreaProps> = ({ label, ...props }) => {
     <label className="flex flex-col text-left mb-2">
       <span className="ml-2">{label}</span>
       <textarea
-        className="border border-gray-500 rounded py-1 px-2 text-xl mt-1 h-20"
+        className="border border-gray-500 rounded py-1 px-2 text-xl mt-1 h-40"
         {...props}
       />
     </label>
