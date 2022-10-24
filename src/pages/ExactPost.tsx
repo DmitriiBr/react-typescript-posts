@@ -1,26 +1,29 @@
-import React from 'react';
-import { useParams } from 'react-router-dom';
+import React, { useContext, useEffect } from 'react';
 import Loader from '../components/Loader/Loader';
-import { useExactPost } from '../hooks/useExactPost';
 import Error from '../components/Error/Error';
 import Comments from '../components/Comments';
+import { PostsContext } from '../context/PostsContext';
+import { useFetch } from '../hooks/useFetch';
 
 const ExactPost = () => {
-  const { id: postId } = useParams();
-  const { exactPost, loading, error } = useExactPost(postId || '');
+  const { exactPost, getExactPost } = useContext(PostsContext);
+  const [fetchExactPost, exactPostLoading, exactPostError] =
+    useFetch(getExactPost);
+
+  useEffect(() => {
+    fetchExactPost();
+  }, []);
 
   return (
     <div className="mt-10">
-      {error && <Error>{error}</Error>}
-      {loading ? (
+      {exactPostError && <Error>{exactPostError}</Error>}
+      {exactPostLoading ? (
         <Loader />
       ) : (
         <>
-          <h1 className="text-3xl font-bold mb-10">
-            {exactPost?.id}. {exactPost?.title}
-          </h1>
+          <h1 className="text-3xl font-bold mb-10">{exactPost?.title}</h1>
           <p className="text-xl">{exactPost?.body}</p>
-          <Comments postId={postId} />
+          <Comments postId={exactPost.id} />
         </>
       )}
     </div>

@@ -1,18 +1,25 @@
-import React, { useContext, useEffect, useState } from 'react';
+import React, { useContext, useState } from 'react';
 import { ModalContext, ModalTypes } from '../context/ModalContext';
 import { PostsContext } from '../context/PostsContext';
 import { IPost } from '../data/types';
+import { useFetch } from '../hooks/useFetch';
 import Button from './Button';
+import Error from './Error/Error';
 import Input from './Input';
+import Loader from './Loader/Loader';
 import TextArea from './TextArea';
 
 const EditPost = () => {
-  const { posts, setPosts, choosedPostID } = useContext(PostsContext);
+  const { posts, choosedPostID, editPost } = useContext(PostsContext);
   const { close } = useContext(ModalContext);
   const [postError, setPostError] = useState<string>('');
 
   const [currentPost, setCurrentPost] = useState<IPost | undefined>(
     posts.find((post) => post.id === choosedPostID)
+  );
+
+  const [fetchEditedPost, editedPostLoading, editedPostError] = useFetch(() =>
+    editPost(currentPost)
   );
 
   const editPostHandler = (field: 'body' | 'title') => {
@@ -24,47 +31,53 @@ const EditPost = () => {
     };
   };
 
-  const submitEdidingHandler = (e: React.FormEvent) => {
+  const submitEdidingHandler = async (e: React.FormEvent) => {
     if (currentPost) {
       if (currentPost.body && currentPost.title) {
         e.preventDefault();
-        const filteredPosts = posts.filter((post) => post.id !== choosedPostID);
-        setPosts([...filteredPosts, currentPost]);
+        await fetchEditedPost();
         close(ModalTypes.editPost);
       } else {
         e.preventDefault();
-        console.log('errored');
         setPostError('You shold write something.');
       }
     }
   };
 
   return (
-    <form
-      className="flex flex-col justify-between"
-      onSubmit={submitEdidingHandler}
-    >
-      <Input
-        label="Post title: "
-        type="text"
-        placeholder="title..."
-        value={currentPost?.title}
-        onChange={editPostHandler('title')}
-      />
-      {postError && (
-        <span className="text-red-500 px-3 text-sm">{postError}</span>
+    <>
+      {editedPostError && <Error>{editedPostError}</Error>}
+      {editedPostLoading ? (
+        <Loader />
+      ) : (
+        <form
+          className="flex flex-col justify-between"
+          onSubmit={submitEdidingHandler}
+        >
+          <Input
+            label="Post title: "
+            type="text"
+            placeholder="title..."
+            value={currentPost?.title}
+            onChange={editPostHandler('title')}
+            autoFocus={true}
+          />
+          {postError && (
+            <span className="text-red-500 px-3 text-sm">{postError}</span>
+          )}
+          <TextArea
+            label="Post body: "
+            placeholder="body..."
+            value={currentPost?.body}
+            onChange={editPostHandler('body')}
+          />
+          {postError && (
+            <span className="text-red-500 px-3 text-sm">{postError}</span>
+          )}
+          <Button>Apply changes</Button>
+        </form>
       )}
-      <TextArea
-        label="Post body: "
-        placeholder="body..."
-        value={currentPost?.body}
-        onChange={editPostHandler('body')}
-      />
-      {postError && (
-        <span className="text-red-500 px-3 text-sm">{postError}</span>
-      )}
-      <Button>Apply changes</Button>
-    </form>
+    </>
   );
 };
 

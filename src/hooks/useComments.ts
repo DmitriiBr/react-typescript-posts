@@ -8,7 +8,7 @@ interface useCommentsReturn {
   error: string;
 }
 
-export const useComments = (postId: string): useCommentsReturn => {
+export const useComments = (postId: number): useCommentsReturn => {
   const [comments, setComments] = useState<IComment[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string>('');

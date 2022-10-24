@@ -1,24 +1,29 @@
 import React, { useContext, useState } from 'react';
 import { ModalContext, ModalTypes } from '../context/ModalContext';
 import { PostsContext } from '../context/PostsContext';
-import { IPost } from '../data/types';
+import { INewPost } from '../data/types';
+import { useFetch } from '../hooks/useFetch';
 import Button from './Button';
+import Error from './Error/Error';
 import Input from './Input';
+import Loader from './Loader/Loader';
 import TextArea from './TextArea';
 
 const CreatePost = () => {
-  const { posts, setPosts } = useContext(PostsContext);
+  const { addPost } = useContext(PostsContext);
   const { close } = useContext(ModalContext);
   const [postError, setPostError] = useState<string>('');
 
-  const postTemplate: IPost = {
-    id: Date.now(),
+  const postTemplate: INewPost = {
     title: '',
     body: '',
     userId: Date.now(),
   };
 
   const [newPost, setNewPost] = useState(postTemplate);
+  const [addNewPost, loadingNewPost, errorNewPost] = useFetch(() =>
+    addPost(newPost)
+  );
 
   const setPostAttribute = (field: 'body' | 'title') => {
     return (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -27,10 +32,10 @@ const CreatePost = () => {
     };
   };
 
-  const handleCreatePost = (e: React.FormEvent) => {
+  const handleCreatePost = async (e: React.FormEvent) => {
     if (newPost.body && newPost.title) {
       e.preventDefault();
-      setPosts([...posts, newPost]);
+      await addNewPost();
       close(ModalTypes.createPost);
     } else {
       e.preventDefault();
@@ -40,31 +45,38 @@ const CreatePost = () => {
   };
 
   return (
-    <form
-      className="flex flex-col justify-between"
-      onSubmit={handleCreatePost}
-    >
-      <Input
-        label="Post title: "
-        type="text"
-        placeholder="title..."
-        value={newPost.title}
-        onChange={setPostAttribute('title')}
-      />
-      {!newPost.title && postError && (
-        <span className="text-red-500 px-3 text-sm">{postError}</span>
+    <>
+      {errorNewPost && <Error>{errorNewPost}</Error>}
+      {loadingNewPost ? (
+        <Loader />
+      ) : (
+        <form
+          className="flex flex-col justify-between"
+          onSubmit={handleCreatePost}
+        >
+          <Input
+            label="Post title: "
+            type="text"
+            placeholder="title..."
+            value={newPost.title}
+            onChange={setPostAttribute('title')}
+          />
+          {!newPost.title && postError && (
+            <span className="text-red-500 px-3 text-sm">{postError}</span>
+          )}
+          <TextArea
+            label="Post body: "
+            placeholder="body..."
+            value={newPost.body}
+            onChange={setPostAttribute('body')}
+          />
+          {!newPost.body && postError && (
+            <span className="text-red-500 px-3 text-sm">{postError}</span>
+          )}
+          <Button>Create</Button>
+        </form>
       )}
-      <TextArea
-        label="Post body: "
-        placeholder="body..."
-        value={newPost.body}
-        onChange={setPostAttribute('body')}
-      />
-      {!newPost.body && postError && (
-        <span className="text-red-500 px-3 text-sm">{postError}</span>
-      )}
-      <Button>Create</Button>
-    </form>
+    </>
   );
 };
 

@@ -5,6 +5,8 @@ export interface IPost {
   body: string;
 }
 
+export type INewPost = Pick<IPost, 'title' | 'body' | 'userId'>;
+
 export interface IComment {
   postId: number;
   id: number;

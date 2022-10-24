@@ -5,11 +5,11 @@ import Loader from './Loader/Loader';
 import Error from './Error/Error';
 
 interface CommentsProps {
-  postId: string | undefined;
+  postId: number | undefined;
 }
 
 const Comments: FC<CommentsProps> = ({ postId }) => {
-  const { comments, loading, error } = useComments(postId || '');
+  const { comments, loading, error } = useComments(postId || 0);
 
   return (
     <>
