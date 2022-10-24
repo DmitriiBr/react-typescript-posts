@@ -17,7 +17,7 @@ interface IPostsContext {
   addPost: (post: INewPost) => Promise<void>;
   deletePost: () => Promise<void>;
   editPost: (post: IPost | undefined) => Promise<void>;
-  getExactPost: () => Promise<void>;
+  getExactPost: (id: string | undefined) => Promise<void>;
 }
 
 interface PostsStateProps {
@@ -102,9 +102,9 @@ const PostsState = ({ children }: PostsStateProps) => {
     setPosts([...filteredPosts, editedPost]);
   };
 
-  const getExactPost = async () => {
+  const getExactPost = async (id: string | undefined) => {
     const response = await axios.get<IPost>(
-      `https://jsonplaceholder.typicode.com/posts/${choosedPostID}`
+      `https://jsonplaceholder.typicode.com/posts/${id}`
     );
     setExactPost(response.data);
   };

@@ -4,11 +4,14 @@ import Error from '../components/Error/Error';
 import Comments from '../components/Comments';
 import { PostsContext } from '../context/PostsContext';
 import { useFetch } from '../hooks/useFetch';
+import { useParams } from 'react-router-dom';
 
 const ExactPost = () => {
+  const { id } = useParams();
   const { exactPost, getExactPost } = useContext(PostsContext);
-  const [fetchExactPost, exactPostLoading, exactPostError] =
-    useFetch(getExactPost);
+  const [fetchExactPost, exactPostLoading, exactPostError] = useFetch(() =>
+    getExactPost(id)
+  );
 
   useEffect(() => {
     fetchExactPost();

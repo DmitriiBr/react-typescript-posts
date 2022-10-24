@@ -31,7 +31,6 @@ const Posts: React.FC<PostsProps> = ({ posts }) => {
 
     return arr;
   }, [pagesTotal]);
-  console.log(pagesArray);
 
   useEffect(() => {
     fetchPostsData();
