@@ -1,7 +1,7 @@
 import React from 'react';
 import { Route, Routes } from 'react-router-dom';
-import Navbar from './components/Navbar';
-import { routes } from './routes/indes';
+import Navbar from './components/Navbar/Navbar';
+import { routes } from './routes';
 
 function App() {
   return (
@@ -12,7 +12,7 @@ function App() {
           {routes.map((route) => (
             <Route
               path={route.path}
-              element={<route.element />}
+              element={route.element}
               key={route.path}
             />
           ))}
