@@ -3,28 +3,13 @@ import PostsList from '../components/Post/PostsList';
 import SearchMenu from '../components/SearchMenu';
 import SortMenu from '../components/SortMenu';
 import { ModalContext, ModalTypes } from '../context/ModalContext';
-import { PostsContext } from '../context/PostsContext';
 import { IPost } from '../data/types';
+import { useSortedPosts } from '../hooks/useSortedPosts';
 
 const Posts = () => {
   const { open } = useContext(ModalContext);
-  const { posts } = useContext(PostsContext);
   const [selectedSort, setSelectedSort] = useState<keyof IPost>('id');
-
-  const getSortedPosts = (): IPost[] => {
-    if (selectedSort) {
-      return [...posts].sort((a, b) => {
-        if (typeof a[selectedSort] === 'number') {
-          return Number(a[selectedSort]) - Number(b[selectedSort]);
-        } else {
-          return String(a[selectedSort]).localeCompare(String(b[selectedSort]));
-        }
-      });
-    }
-    return posts;
-  };
-
-  const sortedPosts = useMemo(getSortedPosts, [posts, selectedSort]);
+  const sortedPosts = useSortedPosts(selectedSort);
 
   const onSelectSortHandler = (property: keyof IPost) => {
     setSelectedSort(property);

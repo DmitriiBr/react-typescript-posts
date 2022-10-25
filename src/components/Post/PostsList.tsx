@@ -7,6 +7,7 @@ import Error from '../Error/Error';
 import { useFetch } from '../../hooks/useFetch';
 import PostActions from './PostActions';
 import { usePagination } from '../../hooks/usePagination';
+import PostsPagination from './PostsPagination';
 
 interface PostsProps {
   posts: IPost[];
@@ -14,10 +15,11 @@ interface PostsProps {
 
 const PostsList: React.FC<PostsProps> = ({ posts }) => {
   const { getAllPosts, pages, setPages } = useContext(PostsContext);
-
   const [fetchPostsData, loadingPosts, errorPosts] = useFetch(getAllPosts);
-
   const [pagesArray] = usePagination(pages.total);
+
+  const changePageHandler = (current: number) =>
+    setPages({ ...pages, current });
 
   useEffect(() => {
     fetchPostsData();
@@ -41,21 +43,11 @@ const PostsList: React.FC<PostsProps> = ({ posts }) => {
               />
             ))}
           </ul>
-          <div className="flex align-center justify-between">
-            {pagesArray.map((number) => (
-              <button
-                key={number}
-                className={`font-bold transition-all text-xl border-b-2 border-b-black px-3 py-1 m-1 cursor-pointer ${
-                  pages.current === number
-                    ? 'text-blue-500 border-b-blue-500'
-                    : 'text-black'
-                }`}
-                onClick={() => setPages({ ...pages, current: number })}
-              >
-                {number}
-              </button>
-            ))}
-          </div>
+          <PostsPagination
+            changePage={changePageHandler}
+            pages={pages}
+            pagesArray={pagesArray}
+          />
         </>
       )}
     </>

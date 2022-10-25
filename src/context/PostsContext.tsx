@@ -8,7 +8,7 @@ import { PostService } from '../api/PostsService';
 import { INewPost, IPost } from '../data/types';
 import { getPagesCount } from '../utils/pages';
 
-interface IPages {
+export interface IPages {
   current: number;
   limit: number;
   total: number;
