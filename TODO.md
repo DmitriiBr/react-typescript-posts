@@ -3,10 +3,9 @@
 ## High
 
 - Huge refactor to modals [done]
-- Refactor folder structure
-- Refactor posts context to hook and delete context, that do not needed anymore
-- Create api folder and api file to fetch exact data to show posts
-- Posts pagination functional
+- Refactor folder structure [done]
+- Create api folder and api file to fetch exact data to show posts [done]
+- Posts pagination functional [doing]
 - Create filtering and finding posts functional
 - Simple login form with validation
 

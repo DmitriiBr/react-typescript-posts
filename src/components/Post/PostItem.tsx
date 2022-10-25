@@ -28,7 +28,6 @@ const PostItem: React.FC<PostItemProps> = ({ post, index }) => {
 
   const handleOpenExactPost = (id: number) => {
     navigate(`/posts/${id}`);
-    setChoosedPostID(id);
   };
 
   const postBodyShorter = (body: string) => {
@@ -46,10 +45,10 @@ const PostItem: React.FC<PostItemProps> = ({ post, index }) => {
           className="text-2xl font-bold mb-2 cursor-pointer hover:text-blue-500"
           onClick={() => handleOpenExactPost(post.id)}
         >
-          {index + 1}. {post.title}
+          {post.id}. {post.title}
         </h1>
         <p className="font-normal text-gray-500 mb-2">
-          {post.id}. {postBodyShorter(post.body)}
+          {postBodyShorter(post.body)}
         </p>
         <span>User who post this has and id of: {post.userId}</span>
       </div>
