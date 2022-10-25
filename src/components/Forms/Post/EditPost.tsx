@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
-import { ModalContext, ModalTypes } from '../context/ModalContext';
-import { PostsContext } from '../context/PostsContext';
-import { IPost } from '../data/types';
-import { useFetch } from '../hooks/useFetch';
-import Button from './Button';
-import Error from './Error/Error';
-import Input from './Input';
-import Loader from './Loader/Loader';
-import TextArea from './TextArea';
+import { ModalContext } from '../../../context/ModalContext';
+import { PostsContext } from '../../../context/PostsContext';
+import { IPost } from '../../../data/types';
+import { useFetch } from '../../../hooks/useFetch';
+import Button from '../../UI/Button';
+import Error from '../../Error/Error';
+import Input from '../../UI/Input';
+import Loader from '../../Loader/Loader';
+import TextArea from '../../UI/TextArea';
 
 const EditPost = () => {
   const { posts, choosedPostID, editPost } = useContext(PostsContext);
@@ -36,7 +36,7 @@ const EditPost = () => {
       if (currentPost.body && currentPost.title) {
         e.preventDefault();
         await fetchEditedPost();
-        close(ModalTypes.editPost);
+        close();
       } else {
         e.preventDefault();
         setPostError('You shold write something.');

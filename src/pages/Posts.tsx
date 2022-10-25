@@ -1,12 +1,12 @@
 import React, { useContext, useMemo, useState } from 'react';
-import Posts from '../components/Posts';
+import PostsList from '../components/Post/PostsList';
 import SearchMenu from '../components/SearchMenu';
 import SortMenu from '../components/SortMenu';
 import { ModalContext, ModalTypes } from '../context/ModalContext';
 import { PostsContext } from '../context/PostsContext';
 import { IPost } from '../data/types';
 
-const Main = () => {
+const Posts = () => {
   const { open } = useContext(ModalContext);
   const { posts } = useContext(PostsContext);
   const [selectedSort, setSelectedSort] = useState<keyof IPost>('id');
@@ -32,13 +32,12 @@ const Main = () => {
 
   return (
     <>
-      <h1 className="text-center font-bold font-mono text-3xl">Hello world</h1>
       <SearchMenu />
       <SortMenu
-        data={['body', 'title', 'id']}
+        data={['body', 'title']}
         onClick={onSelectSortHandler}
       />
-      <Posts posts={sortedPosts} />
+      <PostsList posts={sortedPosts} />
       <button
         className="fixed right-5 bottom-5 border
          border-gray-500 py-2 px-2 bg-green-300 rounded 
@@ -51,4 +50,4 @@ const Main = () => {
   );
 };
 
-export default Main;
+export default Posts;

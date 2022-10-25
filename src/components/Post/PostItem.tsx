@@ -1,9 +1,9 @@
 import React, { useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { ModalContext, ModalTypes } from '../context/ModalContext';
-import { PostsContext } from '../context/PostsContext';
-import { IPost } from '../data/types';
-import Button from './Button';
+import { ModalContext, ModalTypes } from '../../context/ModalContext';
+import { PostsContext } from '../../context/PostsContext';
+import { IPost } from '../../data/types';
+import Button from '../UI/Button';
 
 interface PostItemProps {
   post: IPost;

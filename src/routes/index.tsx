@@ -2,7 +2,7 @@ import React from 'react';
 import { Navigate } from 'react-router-dom';
 import ExactPost from '../pages/ExactPost';
 import Login from '../pages/Login';
-import Main from '../pages/Main';
+import Main from '../pages/Posts';
 
 export enum RouterPaths {
   POSTS = '/posts',

@@ -1,13 +1,13 @@
 import React, { useContext, useState } from 'react';
-import { ModalContext, ModalTypes } from '../context/ModalContext';
-import { PostsContext } from '../context/PostsContext';
-import { INewPost } from '../data/types';
-import { useFetch } from '../hooks/useFetch';
-import Button from './Button';
-import Error from './Error/Error';
-import Input from './Input';
-import Loader from './Loader/Loader';
-import TextArea from './TextArea';
+import { ModalContext } from '../../../context/ModalContext';
+import { PostsContext } from '../../../context/PostsContext';
+import { INewPost } from '../../../data/types';
+import { useFetch } from '../../../hooks/useFetch';
+import Button from '../../UI/Button';
+import Error from '../../Error/Error';
+import Input from '../../UI/Input';
+import Loader from '../../Loader/Loader';
+import TextArea from '../../UI/TextArea';
 
 const CreatePost = () => {
   const { addPost } = useContext(PostsContext);
@@ -36,7 +36,7 @@ const CreatePost = () => {
     if (newPost.body && newPost.title) {
       e.preventDefault();
       await addNewPost();
-      close(ModalTypes.createPost);
+      close();
     } else {
       e.preventDefault();
       console.log('errored');

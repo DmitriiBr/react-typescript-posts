@@ -1,8 +1,8 @@
 import React, { FC } from 'react';
-import { useComments } from '../hooks/useComments';
+import { useComments } from '../../hooks/useComments';
 import CommentsItem from './CommentsItem';
-import Loader from './Loader/Loader';
-import Error from './Error/Error';
+import Loader from '../Loader/Loader';
+import Error from '../Error/Error';
 
 interface CommentsProps {
   postId: number | undefined;

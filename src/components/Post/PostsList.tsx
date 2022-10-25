@@ -1,21 +1,17 @@
 import React, { useContext, useEffect, useMemo, useState } from 'react';
 import PostItem from './PostItem';
-import Modal from './Modal';
-import CreatePost from './CreatePost';
-import { IPost } from '../data/types';
-import DeletePost from './DeletePost';
-import { ModalTypes } from '../context/ModalContext';
-import { PostsContext } from '../context/PostsContext';
-import Loader from './Loader/Loader';
-import Error from './Error/Error';
-import EditPost from './EditPost';
-import { useFetch } from '../hooks/useFetch';
+import { IPost } from '../../data/types';
+import { PostsContext } from '../../context/PostsContext';
+import Loader from '../Loader/Loader';
+import Error from '../Error/Error';
+import { useFetch } from '../../hooks/useFetch';
+import PostActions from './PostActions';
 
 interface PostsProps {
   posts: IPost[];
 }
 
-const Posts: React.FC<PostsProps> = ({ posts }) => {
+const PostsList: React.FC<PostsProps> = ({ posts }) => {
   const { getAllPosts } = useContext(PostsContext);
   const [fetchPostsData, loadingPosts, errorPosts] = useFetch(getAllPosts);
   const [pagesTotal, setPagesTotal] = useState(10);
@@ -38,24 +34,7 @@ const Posts: React.FC<PostsProps> = ({ posts }) => {
 
   return (
     <>
-      <Modal
-        title="Create new post:"
-        modalType={ModalTypes.createPost}
-      >
-        <CreatePost />
-      </Modal>
-      <Modal
-        title="Do you really want to delete this post?"
-        modalType={ModalTypes.deletePost}
-      >
-        <DeletePost />
-      </Modal>
-      <Modal
-        title="Post editing"
-        modalType={ModalTypes.editPost}
-      >
-        <EditPost />
-      </Modal>
+      <PostActions />
       {errorPosts && <Error>{errorPosts}</Error>}
       {loadingPosts ? (
         <Loader />
@@ -74,4 +53,4 @@ const Posts: React.FC<PostsProps> = ({ posts }) => {
   );
 };
 
-export default Posts;
+export default PostsList;

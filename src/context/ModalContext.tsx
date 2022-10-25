@@ -15,7 +15,8 @@ export interface IVisibility {
 interface IModalContext {
   visibility: IVisibility;
   open: (prop: keyof IVisibility) => void;
-  close: (prop: keyof IVisibility) => void;
+  close: () => void;
+  isAnyModalOpen: boolean;
 }
 
 export const ModalContext = createContext<IModalContext>({
@@ -30,6 +31,7 @@ export const ModalContext = createContext<IModalContext>({
   close: () => {
     return;
   },
+  isAnyModalOpen: false,
 });
 
 export const ModalState = ({ children }: { children: React.ReactNode }) => {
@@ -40,12 +42,18 @@ export const ModalState = ({ children }: { children: React.ReactNode }) => {
   };
 
   const [visibility, setVisibility] = useState(visibilityTemplate);
+  const [isAnyModalOpen, setIsAnyModalOpen] = useState(false);
 
   const open = (prop: keyof IVisibility) =>
     setVisibility({ ...visibility, [prop]: true });
 
-  const close = (prop: keyof IVisibility) =>
-    setVisibility({ ...visibility, [prop]: false });
+  const close = () => {
+    for (const key in visibility) {
+      if (visibility[key as keyof IVisibility] === true) {
+        setVisibility({ ...visibility, [key]: false });
+      }
+    }
+  };
 
   useEffect(() => {
     if (
@@ -53,14 +61,16 @@ export const ModalState = ({ children }: { children: React.ReactNode }) => {
       visibility[ModalTypes.deletePost] ||
       visibility[ModalTypes.editPost]
     ) {
+      setIsAnyModalOpen(true);
       document.body.classList.add('modal-open');
     } else {
+      setIsAnyModalOpen(false);
       document.body.classList.remove('modal-open');
     }
   }, [visibility]);
 
   return (
-    <ModalContext.Provider value={{ visibility, open, close }}>
+    <ModalContext.Provider value={{ visibility, open, close, isAnyModalOpen }}>
       {children}
     </ModalContext.Provider>
   );

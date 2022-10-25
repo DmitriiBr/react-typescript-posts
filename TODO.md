@@ -2,7 +2,7 @@
 
 ## High
 
-- React router redirecting to posts page, from '.../' [done]
+- Huge refactor to modals [done]
 - Refactor folder structure
 - Refactor posts context to hook and delete context, that do not needed anymore
 - Create api folder and api file to fetch exact data to show posts
