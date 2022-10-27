@@ -2,7 +2,7 @@ import React, { useContext, useEffect } from 'react';
 import Loader from '../components/Loader/Loader';
 import Error from '../components/Error/Error';
 import Comments from '../components/Post/Comments';
-import { PostsContext } from '../context/PostsContext';
+import { PostsContext } from '../context/PostsContext/PostsContext';
 import { useFetch } from '../hooks/useFetch';
 import { useParams } from 'react-router-dom';
 

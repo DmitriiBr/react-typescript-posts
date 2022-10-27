@@ -1,6 +1,6 @@
 import React, { useContext } from 'react';
 import { ModalContext } from '../../../context/ModalContext';
-import { PostsContext } from '../../../context/PostsContext';
+import { PostsContext } from '../../../context/PostsContext/PostsContext';
 import { useFetch } from '../../../hooks/useFetch';
 import Button from '../../UI/Button';
 import Error from '../../Error/Error';

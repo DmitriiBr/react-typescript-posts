@@ -1,5 +1,5 @@
 import React from 'react';
-import { IPages } from '../../context/PostsContext';
+import { IPages } from '../../context/PostsContext/PostsContext';
 
 const PostsPagination = ({
   pagesArray,

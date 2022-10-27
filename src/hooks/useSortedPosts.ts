@@ -1,5 +1,5 @@
 import { useContext, useMemo } from 'react';
-import { PostsContext } from '../context/PostsContext';
+import { PostsContext } from '../context/PostsContext/PostsContext';
 import { IPost } from '../data/types';
 
 export const useSortedPosts = (selectedSort: keyof IPost) => {

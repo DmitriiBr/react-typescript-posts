@@ -2,7 +2,7 @@ import React from 'react';
 import ReactDOM from 'react-dom/client';
 import './index.css';
 import App from './App';
-import PostsState from './context/PostsContext';
+import PostsState from './context/PostsContext/PostsContext';
 import { ModalState } from './context/ModalContext';
 import { BrowserRouter } from 'react-router-dom';
 

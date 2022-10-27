@@ -1,7 +1,7 @@
 import React, { useContext, useEffect } from 'react';
 import PostItem from './PostItem';
 import { IPost } from '../../data/types';
-import { PostsContext } from '../../context/PostsContext';
+import { PostsContext } from '../../context/PostsContext/PostsContext';
 import Loader from '../Loader/Loader';
 import Error from '../Error/Error';
 import { useFetch } from '../../hooks/useFetch';
