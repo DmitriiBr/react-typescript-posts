@@ -2,13 +2,11 @@ import React, {
   createContext,
   Dispatch,
   SetStateAction,
-  useReducer,
   useState,
 } from 'react';
 import { PostService } from '../../api/PostsService';
 import { INewPost, IPost } from '../../data/types';
 import { getPagesCount } from '../../utils/pages';
-import { IPostsState, PostsReducer } from './PostsReducer';
 
 export interface IPages {
   current: number;
@@ -47,23 +45,6 @@ const PostsState = ({ children }: { children: React.ReactNode }) => {
     total: 0,
     limit: 10,
   });
-
-  const postsStateTemplate: IPostsState = {
-    posts: [],
-    currentPost: {} as IPost,
-    currentPostID: 0,
-    newPost: {} as IPost,
-    pages: {
-      current: Number(localStorage.getItem('currentPage')) || 1,
-      total: 0,
-      limit: 10,
-    },
-  };
-
-  const [postsState, postsDispatch] = useReducer(
-    PostsReducer,
-    postsStateTemplate
-  );
 
   const getAllPosts = async () => {
     const response = await PostService.getAll(pages);
